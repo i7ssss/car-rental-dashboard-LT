@@ -1043,7 +1043,7 @@ function parsePrice(s) {
 
 const allData = rawData.split('\n').map((line, idx) => {
   const cells = line.split('\t').map(x => (x || '').trim());
-  while (cells.length < 23) cells.push('');
+  while (cells.length < 22) cells.push('');
   const sizeCode = (cells[2] || '').split(' - ')[0].trim();
   return {
     id: idx,
@@ -1056,18 +1056,17 @@ const allData = rawData.split('\n').map((line, idx) => {
     model: cells[5],
     country: cells[6],
     trim: cells[7],
-    purpose: cells[9],
+    purpose: cells[9],          // تفاصيل المنتج (عربي)
     passengers: cells[10],
     body: cells[11],
     drivetrain: (cells[12] || '').trim(),
     fuel: cells[13],
-    fuelEff: cells[14],
     fullName: `${cells[4] || ''} ${cells[5] || ''}`.trim(),
     prices: [
-      { Limited: parsePrice(cells[15]), Unlimited: parsePrice(cells[16]) },
-      { Limited: parsePrice(cells[17]), Unlimited: parsePrice(cells[18]) },
-      { Limited: parsePrice(cells[19]), Unlimited: parsePrice(cells[20]) },
-      { Limited: parsePrice(cells[21]), Unlimited: parsePrice(cells[22]) },
+      { Limited: parsePrice(cells[14]), Unlimited: parsePrice(cells[15]) }, // 24
+      { Limited: parsePrice(cells[16]), Unlimited: parsePrice(cells[17]) }, // 36
+      { Limited: parsePrice(cells[18]), Unlimited: parsePrice(cells[19]) }, // 48
+      { Limited: parsePrice(cells[20]), Unlimited: parsePrice(cells[21]) }, // 60
     ],
   };
 }).filter(d => d.supplier && d.manufacturer && d.body);
